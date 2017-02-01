@@ -2078,7 +2078,7 @@ INSTALLED_APPS = (
 
     # edX Mobile API
     'mobile_api',
-    'social.apps.django_app.default',
+    'social_django',
 
     # Surveys
     'survey',
@@ -2174,11 +2174,6 @@ INSTALLED_APPS = (
     # Unusual migrations
     'database_fixups',
 )
-
-# Migrations which are not in the standard module "migrations"
-MIGRATION_MODULES = {
-    'social.apps.django_app.default': 'social.apps.django_app.default.south_migrations'
-}
 
 ######################### CSRF #########################################
 

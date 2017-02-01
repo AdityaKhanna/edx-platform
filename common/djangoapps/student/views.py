@@ -40,10 +40,9 @@ from django.dispatch import receiver, Signal
 from django.template.response import TemplateResponse
 from provider.oauth2.models import Client
 from ratelimitbackend.exceptions import RateLimitException
-
-from social.apps.django_app import utils as social_utils
-from social.backends import oauth as social_oauth
-from social.exceptions import AuthException, AuthAlreadyAssociated
+from social_core.backends import oauth as social_oauth
+from social_core.exceptions import AuthException, AuthAlreadyAssociated
+from social_django import utils as social_utils
 
 from edxmako.shortcuts import render_to_response, render_to_string
 
@@ -1437,7 +1436,7 @@ def login_user(request, error=""):  # pylint: disable=too-many-statements,unused
 
 @csrf_exempt
 @require_POST
-@social_utils.strategy("social:complete")
+@social_utils.psa('social:complete')
 def login_oauth_token(request, backend):
     """
     Authenticate the client using an OAuth access token by using the token to

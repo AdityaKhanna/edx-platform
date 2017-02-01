@@ -6,8 +6,8 @@ from django.contrib.sites.models import Site
 from django.http import Http404
 from django.utils.functional import cached_property
 from openedx.core.djangoapps.theming.helpers import get_current_request
-from social.backends.saml import SAMLAuth, OID_EDU_PERSON_ENTITLEMENT
-from social.exceptions import AuthForbidden, AuthMissingParameter
+from social_core.backends.saml import SAMLAuth, OID_EDU_PERSON_ENTITLEMENT
+from social_core.exceptions import AuthForbidden, AuthMissingParameter
 
 log = logging.getLogger(__name__)
 
@@ -70,7 +70,7 @@ class SAMLAuthBackend(SAMLAuth):  # pylint: disable=abstract-method
         """
         Get an instance of OneLogin_Saml2_Auth
 
-        idp: The Identity Provider - a social.backends.saml.SAMLIdentityProvider instance
+        idp: The Identity Provider - a social_core.backends.saml.SAMLIdentityProvider instance
         """
         # We only override this method so that we can add extra debugging when debug_mode is True
         # Note that auth_inst is instantiated just for the current HTTP request, then is destroyed

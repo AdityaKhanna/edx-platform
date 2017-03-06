@@ -517,7 +517,10 @@ def rescore_problem_module_state(xmodule_instance_args, module_descriptor, stude
             TASK_LOG.warning(msg)
             return UPDATE_STATUS_FAILED
 
-        if not hasattr(instance, 'rescore_problem'):
+        for method in ['rescore', 'rescore_problem']:
+            if hasattr(instance, method):
+                rescore_method = getattr(instance, method)
+        else: # Neither method exists on the block
             # This should also not happen, since it should be already checked in the caller,
             # but check here to be sure.
             msg = "Specified problem does not support rescoring."
@@ -530,7 +533,7 @@ def rescore_problem_module_state(xmodule_instance_args, module_descriptor, stude
         event_transaction_id = create_new_event_transaction_id()
         set_event_transaction_type(GRADES_RESCORE_EVENT_TYPE)
 
-        result = instance.rescore_problem(only_if_higher=task_input['only_if_higher'])
+        result = rescore_method(only_if_higher=task_input['only_if_higher'])
         instance.save()
 
         if 'success' not in result:
